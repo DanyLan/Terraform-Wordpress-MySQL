@@ -115,7 +115,6 @@ resource "kubernetes_service" "wordpress_service" {
     port {
       port        = "80"
       target_port = "80"
-      node_port   = "8080"
     }
 
     type = "NodePort"
