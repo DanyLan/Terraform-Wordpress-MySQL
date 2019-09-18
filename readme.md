@@ -216,13 +216,13 @@ On browser test this way
 
 # MySQL access
 
-From 
+From the following command 
 
     kubectl get svc
     NAME              TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
     wordpress-mysql   NodePort    10.0.6.233    <none>        3306:32567/TCP   23m
     
-At this present point, the mysqp pod can be accessed two ways, either through cluster IP or nodeport. A third way will also be showedcase below
+we can see that the mysql pod can be accessed two ways, either through cluster IP or nodeport. A third way will also be showecased [through loadbalancer] below
 
 # Through cluster IP [pod to pod]
 
