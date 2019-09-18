@@ -177,3 +177,29 @@ Now connect to your cluster and run the following commands
 `sudo terraform validate` (Upgrade Terraform using `terraform 0.12upgrade` if needed)
 
 `terraform apply`
+
+# Wordpress access
+
+In order to check whether your worpress site is working, you will need to allow the TCP traffic on the node port that was assigned.
+
+Get nodeport this way
+
+    kubectl get svc
+    NAME              TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+    wordpress         NodePort    10.0.15.207   <none>        80:32015/TCP     23m
+    
+Get the node where your wordpress pod is sitting this way
+
+    kubectl get pods -o wide
+    NAME                               READY   STATUS    RESTARTS   AGE   IP          NODE                                       
+    wordpress-mysql-77487d7bb6-4wsp7   1/1     Running   0          26m   10.60.1.8   gke-terraform-default-pool-0490f0a7-0k5k   <none>
+   
+Get the external IP address of that particular node
+
+    kubectl get nodes -o wide
+    NAME                                       STATUS   ROLES    AGE   VERSION          INTERNAL-IP   EXTERNAL-IP      OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
+    gke-terraform-default-pool-0490f0a7-0k5k   Ready    <none>   7d    v1.12.8-gke.10   10.128.0.25   34.68.41.63      Container-Optimized OS from Google   4.14.127+        docker://17.3.2
+    gke-terraform-default-pool-0490f0a7-bvx5   Ready    <none>   7d    v1.12.8-gke.10   10.128.0.21   35.193.227.243   Container-Optimized OS from Google   4.14.127+        docker://17.3.2
+    gke-terraform-default-pool-0490f0a7-wktw   Ready    <none>   7d    v1.12.8-gke.10   10.128.0.24   35.225.13.119    Container-Optimized OS from Google   4.14.127+        docker://17.3.2
+    
+    
