@@ -201,5 +201,17 @@ Get the external IP address of that particular node
     gke-terraform-default-pool-0490f0a7-0k5k   Ready    <none>   7d    v1.12.8-gke.10   10.128.0.25   34.68.41.63      Container-Optimized OS from Google   4.14.127+        docker://17.3.2
     gke-terraform-default-pool-0490f0a7-bvx5   Ready    <none>   7d    v1.12.8-gke.10   10.128.0.21   35.193.227.243   Container-Optimized OS from Google   4.14.127+        docker://17.3.2
     gke-terraform-default-pool-0490f0a7-wktw   Ready    <none>   7d    v1.12.8-gke.10   10.128.0.24   35.225.13.119    Container-Optimized OS from Google   4.14.127+        docker://17.3.2
+
+Create a firewall rule to allow TCP traffic on the nodeport:
+
+    gcloud compute firewall-rules create test-node-port --allow tcp:32015
     
+On browser test this way
+
+[NODE_IP_ADDRESS]:[Node_Port]
+34.68.41.63:32015
+
+
+
+
     
