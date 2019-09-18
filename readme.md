@@ -310,7 +310,7 @@ Get the IP of the loadbalancer
     NAME              TYPE           CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
     my-lb-service     LoadBalancer   10.0.9.41     34.70.43.20   3306:30381/TCP   101s
 
-And test this way from a VM
+And test this way from a VM using the IP address of the loadbalancer
 
     mysql --host=34.70.43.20 --user=root --password
 
