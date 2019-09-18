@@ -212,7 +212,7 @@ On browser test this way
 
 34.68.41.63:32015
 
-
+![](https://github.com/DanyLan/Terraform-Wordpress-MySQL/blob/master/wordpress.png)
 
 
     
