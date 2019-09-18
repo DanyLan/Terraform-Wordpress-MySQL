@@ -209,6 +209,7 @@ Create a firewall rule to allow TCP traffic on the nodeport:
 On browser test this way
 
 <NODE_IP_ADDRESS>:[Node_Port]
+
 34.68.41.63:32015
 
 
