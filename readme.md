@@ -214,5 +214,40 @@ On browser test this way
 
 ![](https://github.com/DanyLan/Terraform-Wordpress-MySQL/blob/master/wordpress.png)
 
+# MySQL access
 
+From 
+
+    kubectl get svc
+    NAME              TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+    wordpress-mysql   NodePort    10.0.6.233    <none>        3306:32567/TCP   23m
+    
+At this present point, the mysqp pod can be accessed two ways, either through cluster IP or nodeport. A third way will also be showedcase below
+
+# Through cluster IP [pod to pod]
+
+Get name of wordpress pod
+
+    kubectl get pods
+    NAME                               READY   STATUS    RESTARTS   AGE
+    wordpress-76c79667dc-24zz4         1/1     Running   0          93m
+    wordpress-mysql-77487d7bb6-4wsp7   1/1     Running   0          93m
+
+Exec into the wordpress pod
+
+    kubectl exec -it wordpress-76c79667dc-24zz4 -- sh
+
+Install the MySQL client from the package manager:
+
+    apt-get update
+    apt-get install mysql-client
+
+From variable.tf file, password is `P4sSw0rd0!`
+
+    mysql --host=[cluster_ip] --user=root --password
+    mysql --host=10.0.6.233 --user=root --password
+
+If successful you will see
+
+    mysql>
     
