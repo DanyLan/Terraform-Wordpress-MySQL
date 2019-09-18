@@ -312,6 +312,6 @@ Get the IP of the loadbalancer
 
 And test this way from a VM
 
-    mysql --host=34.70.43.20--user=root --password
+    mysql --host=34.70.43.20 --user=root --password
 
 
