@@ -222,9 +222,9 @@ From the following command
     NAME              TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
     wordpress-mysql   NodePort    10.0.6.233    <none>        3306:32567/TCP   23m
     
-we can see that the mysql pod can be accessed two ways, either through cluster IP or nodeport. A third way will also be showecased [through loadbalancer] below
+we can see that the mysql pod can be accessed two ways, either through cluster IP or nodeport. I will also show a third way to access the mysqp pod through loadbalance however some prior configuration needs to be completed first.
 
-# Through cluster IP [pod to pod]
+# 1. Through cluster IP [pod to pod]
 
 Get name of wordpress pod
 
@@ -242,12 +242,76 @@ Install the MySQL client from the package manager:
     apt-get update
     apt-get install mysql-client
 
-From variable.tf file, password is `P4sSw0rd0!`
+From variable.tf file, password is `P4sSw0rd0!`and log in this way
 
     mysql --host=[cluster_ip] --user=root --password
     mysql --host=10.0.6.233 --user=root --password
 
-If successful you will see
+If successful, you will see
 
     mysql>
     
+# 2. Through NodePort
+
+Now to access the `wordpress-mysql-77487d7bb6-4wsp7` pod we need the external ip and the nodeport and create a firewall rule to allow traffic o that nodeport.
+
+Get the node where the mysql pod resides
+
+    kubectl get pods -o wide
+    NAME                               READY   STATUS    RESTARTS   AGE    IP          NODE                                           NOMINATED NODE
+    wordpress-76c79667dc-24zz4         1/1     Running   0          111m   10.60.1.7   gke-terraform-default-pool-0490f0a7-0k5k   <none>
+    wordpress-mysql-77487d7bb6-4wsp7   1/1     Running   0          111m   10.60.1.8   gke-terraform-default-pool-0490f0a7-0k5k   <none>
+
+Get the external IP of that particular node
+
+    kubectl get nodes -o wide
+    
+    NAME                                       STATUS   ROLES    AGE    VERSION          INTERNAL-IP   EXTERNAL-IP      OS-IMAGE                             KERNEL-VERSION   CONTAINER-RUNTIME
+    gke-terraform-default-pool-0490f0a7-0k5k   Ready    <none>   7d2h   v1.12.8-gke.10   10.128.0.25   34.68.41.63      Container-Optimized OS from Google   4.14.127+        docker://17.3.2
+    gke-terraform-default-pool-0490f0a7-bvx5   Ready    <none>   7d2h   v1.12.8-gke.10   10.128.0.21   35.193.227.243   Container-Optimized OS from Google   4.14.127+        docker://17.3.2
+    gke-terraform-default-pool-0490f0a7-wktw   Ready    <none>   7d2h   v1.12.8-gke.10   10.128.0.24   35.225.13.119    Container-Optimized OS from Google   4.14.127+        docker://17.3.2
+    
+Get nodeport for the mysql pod and create firewall rule to allow TCP traffic on that nodeport
+
+    kubectl get svc
+    NAME              TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+    wordpress-mysql   NodePort    10.0.6.233    <none>        3306:32567/TCP   23m
+    
+    gcloud compute firewall-rules create test-node-port --allow tcp:32567
+    
+The above can be tested both in cloudshell and by create a new VM, after installing the client `apt-get install mysql-client`
+
+    mysql --host=34.68.41.63 --port=32567 --user=root --password
+    
+Now if you want to access the pod externally, you will have to expose the pod externally going through a loadbalancer. Thise is demonstrated below
+
+    nano loadbalancer_my_sql.yaml
+
+<pre>apiVersion: v1
+kind: Service
+metadata:
+  name: my-lb-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: wordpress
+    tier: mysql
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
+</pre>
+
+    kubectl create -f loadbalancer_my_sql.yaml
+
+Get the IP of the loadbalancer
+
+    kubectl get svc
+    NAME              TYPE           CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+    my-lb-service     LoadBalancer   10.0.9.41     34.70.43.20   3306:30381/TCP   101s
+
+And test this way from a VM
+
+    mysql --host=34.70.43.20--user=root --password
+
+
