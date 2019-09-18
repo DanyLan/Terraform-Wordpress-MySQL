@@ -170,10 +170,10 @@ resource "kubernetes_deployment" "wordpress_deployment" {
 }
 </pre>
 
-terraform init
+Now connect to your cluster and run the following commands
 
-sudo terraform validate ( do upgrade below if you run into issues )
+`terraform init`
 
-terraform 0.12upgrade
+`sudo terraform validate` (Upgrade Terraform using `terraform 0.12upgrade` if needed)
 
-terraform apply
+`terraform apply`
