@@ -246,6 +246,8 @@ From variable.tf file, password is `P4sSw0rd0!`and log in this way
 
     mysql --host=[cluster_ip] --user=root --password
     mysql --host=10.0.6.233 --user=root --password
+    
+Cluster ip is obtained from `kubectl get svc`
 
 If successful, you will see
 
