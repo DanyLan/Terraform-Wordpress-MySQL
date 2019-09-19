@@ -253,7 +253,7 @@ If successful, you will see
     
 # 2. Through NodePort
 
-Now to access the `wordpress-mysql-77487d7bb6-4wsp7` pod we need the external ip and the nodeport and create a firewall rule to allow traffic o that nodeport.
+Now to access the `wordpress-mysql-77487d7bb6-4wsp7` pod we need the external ip and the nodeport and create a firewall rule to allow traffic to that nodeport.
 
 Get the node where the mysql pod resides
 
