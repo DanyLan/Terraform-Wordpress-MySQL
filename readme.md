@@ -287,7 +287,7 @@ The above can be tested both in cloudshell or by creating a new VM, after instal
 
     mysql --host=34.68.41.63 --port=32567 --user=root --password
     
-# 2. Through LoadBalancer
+# 3. Through LoadBalancer
     
 Now if you want to access the pod externally, you will have to expose the pod externally going through a loadbalancer. This is demonstrated below
 
