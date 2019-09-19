@@ -289,7 +289,7 @@ The above can be tested both in cloudshell or by creating a new VM, after instal
     
 # 3. Through LoadBalancer
     
-Now if you want to access the pod externally, you will have to expose the pod externally going through a loadbalancer. This is demonstrated below
+Now if you want to access the pod externally (from outside GCP), you will have to expose the pod externally going through a loadbalancer. This is demonstrated below
 
     nano loadbalancer_my_sql.yaml
 
