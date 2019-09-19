@@ -257,7 +257,7 @@ If successful, you will see
     
 # 2. Through NodePort
 
-Now to access the `wordpress-mysql-77487d7bb6-4wsp7` pod, we need the external ip and the nodeport and create a firewall rule to allow traffic to that nodeport.
+Now to access the `wordpress-mysql-77487d7bb6-4wsp7` pod, we need the external ip and the nodeport. In addtiontion, we need create a firewall rule to allow traffic to that nodeport.
 
 Get the node where the mysql pod resides
 
@@ -281,7 +281,7 @@ Get nodeport for the mysql pod and create firewall rule to allow TCP traffic on 
     NAME              TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
     wordpress-mysql   NodePort    10.0.6.233    <none>        3306:32567/TCP   23m
     
-    gcloud compute firewall-rules create test-node-port --allow tcp:32567
+    gcloud compute firewall-rules create test-node-port1 --allow tcp:32567
     
 The above can be tested both in cloudshell or by creating a new VM, after installing the client `apt-get install mysql-client`
 
