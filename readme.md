@@ -174,7 +174,9 @@ Now connect to your cluster and run the following commands
 
 `terraform init`
 
-`sudo terraform validate` (Upgrade Terraform using `terraform 0.12upgrade` if needed)
+`terraform 0.12upgrade`
+
+`sudo terraform validate`
 
 `terraform apply`
 
