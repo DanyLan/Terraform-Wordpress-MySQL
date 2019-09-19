@@ -170,7 +170,7 @@ resource "kubernetes_deployment" "wordpress_deployment" {
 }
 </pre>
 
-Now connect to your cluster and run the following commands
+Create a GKE cluster, connect to it and run the following commands
 
 `terraform init`
 
