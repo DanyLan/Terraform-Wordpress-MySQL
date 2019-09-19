@@ -180,7 +180,7 @@ Now connect to your cluster and run the following commands
 
 # Wordpress access
 
-In order to check whether your worpress site is working, you will need to allow the TCP traffic on the node port that was assigned.
+In order to check whether your worpress site is working, you will need to allow TCP traffic on the node port that was assigned.
 
 Get nodeport this way
 
@@ -222,7 +222,7 @@ From the following command
     NAME              TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
     wordpress-mysql   NodePort    10.0.6.233    <none>        3306:32567/TCP   23m
     
-we can see that the mysql pod can be accessed two ways, either through cluster IP or nodeport. I will also show a third way to access the mysqp pod through loadbalance however some prior configuration needs to be completed first.
+we can see that the mysql pod can be accessed two ways, either through cluster IP or nodeport. I will also show a third way to access the mysqp pod through loadbalancer, however some prior configuration needs to be completed first.
 
 # 1. Through cluster IP [pod to pod]
 
@@ -253,7 +253,7 @@ If successful, you will see
     
 # 2. Through NodePort
 
-Now to access the `wordpress-mysql-77487d7bb6-4wsp7` pod we need the external ip and the nodeport and create a firewall rule to allow traffic to that nodeport.
+Now to access the `wordpress-mysql-77487d7bb6-4wsp7` pod, we need the external ip and the nodeport and create a firewall rule to allow traffic to that nodeport.
 
 Get the node where the mysql pod resides
 
@@ -285,7 +285,7 @@ The above can be tested both in cloudshell or by creating a new VM, after instal
     
 # 2. Through LoadBalancer
     
-Now if you want to access the pod externally, you will have to expose the pod externally going through a loadbalancer. Thise is demonstrated below
+Now if you want to access the pod externally, you will have to expose the pod externally going through a loadbalancer. This is demonstrated below
 
     nano loadbalancer_my_sql.yaml
 
