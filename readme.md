@@ -279,7 +279,7 @@ Get nodeport for the mysql pod and create firewall rule to allow TCP traffic on 
     
     gcloud compute firewall-rules create test-node-port --allow tcp:32567
     
-The above can be tested both in cloudshell and by create a new VM, after installing the client `apt-get install mysql-client`
+The above can be tested both in cloudshell or by creating a new VM, after installing the client `apt-get install mysql-client`
 
     mysql --host=34.68.41.63 --port=32567 --user=root --password
     
