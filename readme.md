@@ -29,6 +29,8 @@ variable "mysql_password" {
 }
 </pre>
 
+Note: Keep in mind to choose a different password for security purposes!!!!!
+
 # Create the `main.tf` file
 
     nano main.tf
